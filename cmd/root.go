@@ -23,8 +23,13 @@ func Execute() {
 func init() {
     // Add subcommands here
     rootCmd.AddCommand(serverCmd) // serve
-    rootCmd.AddCommand(setupCmd) // setup
-    rootCmd.AddCommand(appCmd)  // Create app - add app to INSTALLED_APPS in setting.py
-    rootCmd.AddCommand(migCmd)
-    rootCmd.AddCommand(mkmigCmd)
+    rootCmd.AddCommand(setupCmd)  // setup
+    rootCmd.AddCommand(appCmd)    // Create app - add app to INSTALLED_APPS in setting.py
+    rootCmd.AddCommand(migCmd)    // migrate
+    rootCmd.AddCommand(mkmigCmd)  // makemigrations
+    rootCmd.AddCommand(shmigCmd)  // showmigrations
+    rootCmd.AddCommand(dbshCmd)   // dbshell
+    rootCmd.AddCommand(shCmd)     // shell
+    rootCmd.AddCommand(testCmd)   // test
+    rootCmd.AddCommand(suCmd)     // createsuperuser
 }
