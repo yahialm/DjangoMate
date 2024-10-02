@@ -252,10 +252,10 @@ func dbEnvVars(projectName string) {
     // Build the .env file content
     envContent := fmt.Sprintf(
         `%s_DB_NAME=%s
-        %s_DB_USER=%s
-        %s_DB_PASSWORD=%s
-        %s_DB_HOST=%s
-        %s_DB_PORT=%s`, strings.ToUpper(projectName), dbName, strings.ToUpper(projectName), dbUser, strings.ToUpper(projectName), dbPassword, strings.ToUpper(projectName), dbHost, strings.ToUpper(projectName), dbPort)
+%s_DB_USER=%s
+%s_DB_PASSWORD=%s
+%s_DB_HOST=%s
+%s_DB_PORT=%s`, strings.ToUpper(projectName), dbName, strings.ToUpper(projectName), dbUser, strings.ToUpper(projectName), dbPassword, strings.ToUpper(projectName), dbHost, strings.ToUpper(projectName), dbPort)
 
     // Create or overwrite the .env file
     envFilePath := ".env"
