@@ -32,7 +32,7 @@ func createApp(appName, projectName string) {
         return
     }
 
-    settingsPath := fmt.Sprintf("./%s/settings.py", projectName)
+    settingsPath := fmt.Sprintf("./%s/%s/settings.py", projectName, projectName)
     addAppToSettings(settingsPath, appName)
 }
 
