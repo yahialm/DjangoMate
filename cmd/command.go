@@ -9,26 +9,40 @@ import (
 )
 
 
+
 /*Run the developement server*/
 var serverCmd = &cobra.Command{
     Use:   "server",
     Short: "Run the Django development server",
     Run: func(cmd *cobra.Command, args []string) {
-        runserver()
+        runserver(getProjectNameFromConfig())
     },
 }
 
-func runserver() {
-    // Execute: python manage.py runserver
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py runserver")
+func runserver(projectName string) {
+    // Get the current working directory (where manage.py should be located)
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
+
+    manageFilePath := projectDir + "\\" + projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "runserver")
+    
+    // Set the working directory where manage.py is located
+    cmd.Dir = projectDir
 
     // Attach the process to the std output and error
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
+    // Run the command
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running server:", err)
     }
 }
+
 
 
 
@@ -37,19 +51,26 @@ var migCmd = &cobra.Command{
     Use:   "mig",
     Short: "Run python manage.py migrate",
     Run: func(cmd *cobra.Command, args []string) { 
-        migrate()
+        migrate(getProjectNameFromConfig())
     },
 }
 
-func migrate() {
-    // Execute: python manage.py runserver
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py migrate")
+func migrate(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "migrate")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running migrate:", err)
     }
 }
 
@@ -59,18 +80,26 @@ var mkmigCmd = &cobra.Command{
     Use:   "mkmig",
     Short: "Run python manage.py makemigrations",
     Run: func(cmd *cobra.Command, args []string) {
-        makemigrations()
+        makemigrations(getProjectNameFromConfig())
     },
 }
 
-func makemigrations() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py makemigrations")
+func makemigrations(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "makemigrations")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running makemigrations:", err)
     }
 }
 
@@ -80,18 +109,26 @@ var shmigCmd = &cobra.Command{
     Use:   "shmig",
     Short: "Run python manage.py showmigrations",
     Run: func(cmd *cobra.Command, args []string) {
-        showmigrations()
+        showmigrations(getProjectNameFromConfig())
     },
 }
 
-func showmigrations() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py showmigrations")
+func showmigrations(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "showmigrations")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running showmigrations:", err)
     }
 }
 
@@ -102,18 +139,26 @@ var dbshCmd = &cobra.Command{
     Use:   "dbsh",
     Short: "Run python manage.py dbshell",
     Run: func(cmd *cobra.Command, args []string) {
-        dbshell()
+        dbshell(getProjectNameFromConfig())
     },
 }
 
-func dbshell() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py dbshell")
+func dbshell(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "dbshell")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running dbshell:", err)
     }
 }
 
@@ -123,18 +168,26 @@ var shCmd = &cobra.Command{
     Use:   "sh",
     Short: "Run python manage.py shell",
     Run: func(cmd *cobra.Command, args []string) {
-        shell()
+        shell(getProjectNameFromConfig())
     },
 }
 
-func shell() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py shell")
+func shell(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "shell")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running shell:", err)
     }
 }
 
@@ -143,18 +196,26 @@ var testCmd = &cobra.Command{
     Use:   "test",
     Short: "Run python manage.py test",
     Run: func(cmd *cobra.Command, args []string) {
-        test()
+        test(getProjectNameFromConfig())
     },
 }
 
-func test() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py test")
+func test(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "test")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running test:", err)
     }
 }
 
@@ -164,17 +225,25 @@ var suCmd = &cobra.Command{
     Use:   "su",
     Short: "Run python manage.py createsuperuser",
     Run: func(cmd *cobra.Command, args []string) {
-        createsu()
+        createsu(getProjectNameFromConfig())
     },
 }
 
-func createsu() {
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\python.exe manage.py createsuperuser")
+func createsu(projectName string) {
+    projectDir, err := os.Getwd()
+    if err != nil {
+        fmt.Println("Error getting current working directory:", err)
+    }
 
-    // Attach the process to the std output and error
+    manageFilePath := projectName + "\\manage.py"
+
+    cmd := exec.Command("cmd", "/C", ".\\env\\Scripts\\python.exe", manageFilePath, "createsuperuser")
+    cmd.Dir = projectDir
+
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
+
     if err := cmd.Run(); err != nil {
-        fmt.Println("--------------------------------------------")
+        fmt.Println("Error running createsuperuser:", err)
     }
 }

@@ -25,6 +25,7 @@ func init() {
 // Setup the project environment
 func setup() {
     projectName := getProjectName()
+    createConfigFile(projectName)
     createVirtualEnv()
 	activateVenvWindows()
     installDjango()
@@ -40,6 +41,40 @@ func getProjectName() string {
     fmt.Print("Enter the Django project name: ")
     projectName, _ := reader.ReadString('\n')
     return strings.TrimSpace(projectName)
+}
+
+// Creates a config file with a warning and project name
+func createConfigFile(projectName string) {
+    configContent := fmt.Sprintf(
+        "Warning: Do not modify this file\n%s", projectName)
+
+    err := os.WriteFile("config", []byte(configContent), 0644)
+    if err != nil {
+        fmt.Println("Error writing to config file:", err)
+        return
+    }
+
+    fmt.Println("Config file created with project name.")
+}
+
+// Read the project name from the conf file
+func getProjectNameFromConfig() string {
+    fileContent, err := os.ReadFile("config")
+    if err != nil {
+        fmt.Println("Error reading the config file:", err)
+        return ""
+    }
+
+    // Split the content into lines
+    lines := strings.Split(string(fileContent), "\n")
+
+    // The project name is on the second line
+    if len(lines) > 1 {
+        return strings.TrimSpace(lines[1])
+    }
+
+    fmt.Println("Project name not found in the config file.")
+    return ""
 }
 
 // Create python virtual environment using 'virtualenv'
@@ -124,7 +159,7 @@ func startDjangoProject(projectName string) {
 // Configure database and handle virtual environment
 func dbConfig(projectName string) {
     reader := bufio.NewReader(os.Stdin)
-    fmt.Print("Enter the database you plan to use (sqlite, mysql, postgres): ")
+    fmt.Print("Enter the database you plan to use (sqlite3, mysql, postgresql): ")
     dbChoice, _ := reader.ReadString('\n')
     dbChoice = strings.TrimSpace(dbChoice)
 
@@ -133,12 +168,12 @@ func dbConfig(projectName string) {
         virtualEnvPath = "env/Scripts/pip.exe" // For Windows systems
     }
 
-    if dbChoice != "sqlite" {
+    if dbChoice != "sqlite3" {
         fmt.Printf("Installing database driver for %s inside virtual environment...\n", dbChoice)
         var pkg string
         if dbChoice == "mysql" {
             pkg = "mysqlclient"
-        } else if dbChoice == "postgres" {
+        } else if dbChoice == "postgresql" {
             pkg = "psycopg2-binary"
         }
         if pkg != "" {
@@ -198,7 +233,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.%s',
         'NAME': env('%s_DB_NAME'),
         'USER': env('%s_DB_USER'),
-        'PASSWORD': env('%s_DB_PASS'),
+        'PASSWORD': env('%s_DB_PASSWORD'),
         'HOST': env('%s_DB_HOST'),
         'PORT': env('%s_DB_PORT'),
     }
