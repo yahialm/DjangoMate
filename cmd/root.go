@@ -8,7 +8,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-    Use:   "dd",
+    Use:   "dm",
     Short: "A CLI tool to simplify Django project management",
     Long:  `DjangoMate is a CLI tool that streamlines Django project setup and management.`,
 }
