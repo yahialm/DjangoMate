@@ -227,18 +227,24 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
+DB_NAME = env('%s_DB_NAME')
+DB_USER = env('%s_DB_USER')
+DB_PASSWORD = env('%s_DB_PASSWORD')
+DB_HOST = env('%s_DB_HOST')
+DB_PORT = env('%s_DB_PORT')
+
 # Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.%s',
-        'NAME': env('%s_DB_NAME'),
-        'USER': env('%s_DB_USER'),
-        'PASSWORD': env('%s_DB_PASSWORD'),
-        'HOST': env('%s_DB_HOST'),
-        'PORT': env('%s_DB_PORT'),
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
-`, dbChoice, strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName))
+`, strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName), strings.ToUpper(projectName), dbChoice)
 
     // Append the new configuration
     fileString += dbConfig
