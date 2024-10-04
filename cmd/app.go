@@ -10,14 +10,12 @@ import (
 )
 
 
-const PROJECT_NAME = "reddit"
-
 var appCmd = &cobra.Command{
     Use:   "app [app name]",
     Short: "Create new application and register the created app to the settings.py configuration",
 	Args:  cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
-		createApp(args[0], PROJECT_NAME)
+		createApp(args[0], getProjectNameFromConfig())
     },
 }
 
