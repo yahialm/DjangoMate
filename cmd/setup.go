@@ -33,7 +33,42 @@ func setup() {
     dbConfig(projectName)
     installDjangoEnviron()
     dbEnvVars(projectName)
+    installBandit()
 }
+
+
+// Install flake8
+// func installFlake8() {
+//     fmt.Println("Installing flake8...")
+
+//     cmd := exec.Command("cmd", "/C", "env\\Scripts\\pip.exe install flake8")
+
+//     // Attach the process to the std output and error
+//     cmd.Stdout = os.Stdout
+//     cmd.Stderr = os.Stderr
+//     if err := cmd.Run(); err != nil {
+//         fmt.Println("Flake8 installation failed")
+//     } else {
+//         fmt.Println("Flake8 installation completed")
+//     }
+// }
+
+// Install flake8
+func installBandit() {
+    fmt.Println("Installing flake8...")
+
+    cmd := exec.Command("cmd", "/C", "env\\Scripts\\pip.exe install bandit")
+
+    // Attach the process to the std output and error
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    if err := cmd.Run(); err != nil {
+        fmt.Println("Bandit installation failed")
+    } else {
+        fmt.Println("Bandit installation completed")
+    }
+}
+
 
 // Get the name of the project
 func getProjectName() string {
