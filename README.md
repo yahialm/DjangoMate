@@ -1,5 +1,7 @@
 # DjangoMate CLI Tool
 
+![DjangoMate Logo](./logo.png)
+
 DjangoMate (`dm`) is a powerful CLI tool designed to simplify and enhance Django project management. It brings several helpful features to streamline common operations, enforce security best practices, and ensure code quality in Django-based projects. This tool is aimed at developers who want to be more productive by automating repetitive tasks and integrating essential development tools.
 
 ## Features
