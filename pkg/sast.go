@@ -1,4 +1,4 @@
-package sast
+package pkg
 
 import (
     "fmt"
@@ -30,7 +30,6 @@ var ScanCmd = &cobra.Command{
             target = cwd
         }
 
-        // Run Bandit command with the specified target
         fmt.Println("Running Bandit security scan on:", target)
         runBanditScan(target)
     },
@@ -39,12 +38,10 @@ var ScanCmd = &cobra.Command{
 func runBanditScan(target string) {
 
 	cmd := exec.Command("cmd", "/C", "env\\Scripts\\bandit.exe" ,"-r", target)
-    // cmd := exec.Command("bandit", "-r", target)
 
 	cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
 
-    // Run the command
     err := cmd.Run()
     if err != nil {
         fmt.Println("Error running Bandit scan:", err)

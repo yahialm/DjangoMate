@@ -7,7 +7,7 @@ import (
 
 	"os"
 
-    "github.com/yahialm/django-simplifier/pkg/sast"
+    "github.com/yahialm/django-simplifier/pkg"
 )
 
 var rootCmd = &cobra.Command{
@@ -35,5 +35,6 @@ func init() {
 	rootCmd.AddCommand(shCmd)     // shell
 	rootCmd.AddCommand(testCmd)   // test
 	rootCmd.AddCommand(suCmd)     // createsuperuser
-    rootCmd.AddCommand(sast.ScanCmd)
+    rootCmd.AddCommand(pkg.ScanCmd) // Scan
+    rootCmd.AddCommand(pkg.FormatCmd) // Format code
 }
