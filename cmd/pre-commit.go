@@ -54,5 +54,16 @@ repos:
             return
         }
         fmt.Println("Pre-commit hooks installed successfully.")
+
+		/******************************************************/
+
+		fmt.Println("Running pre-commit autoupdate to get rev values")
+		cmdAutoupdate := exec.Command("cmd", "/C", "env\\Scripts\\pre-commit", "autoupdate")
+        err = cmdAutoupdate.Run()
+        if err != nil {
+            fmt.Println("Error installing pre-commit:", err)
+            return
+        }
+        fmt.Println(".pre-commit-config.yaml configured")
     },
 }
