@@ -55,9 +55,9 @@ func setup() {
 
 // Install flake8
 func installBandit() {
-    fmt.Println("Installing flake8...")
+    fmt.Println("Installing bandit...")
 
-    cmd := exec.Command("cmd", "/C", "env\\Scripts\\pip.exe install bandit")
+    cmd := exec.Command("cmd", "/C", "env\\Scripts\\pip.exe install", "bandit")
 
     // Attach the process to the std output and error
     cmd.Stdout = os.Stdout
