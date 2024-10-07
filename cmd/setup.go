@@ -34,6 +34,7 @@ func setup() {
     installDjangoEnviron()
     dbEnvVars(projectName)
     installBandit()
+    installBlackFormatter()
 }
 
 
@@ -52,6 +53,21 @@ func setup() {
 //         fmt.Println("Flake8 installation completed")
 //     }
 // }
+
+func installBlackFormatter() {
+    fmt.Println("Installing black...")
+
+    cmd := exec.Command("cmd", "/C", "env\\Scripts\\pip.exe install", "black")
+
+    // Attach the process to the std output and error
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    if err := cmd.Run(); err != nil {
+        fmt.Println("Black installation failed")
+    } else {
+        fmt.Println("Black installation completed")
+    }
+}
 
 // Install flake8
 func installBandit() {
