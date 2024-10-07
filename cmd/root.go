@@ -37,4 +37,5 @@ func init() {
 	rootCmd.AddCommand(suCmd)     // createsuperuser
     rootCmd.AddCommand(pkg.ScanCmd) // Scan
     rootCmd.AddCommand(pkg.FormatCmd) // Format code
+    rootCmd.AddCommand(precommitSetupCmd)  // CI & Best practices
 }
